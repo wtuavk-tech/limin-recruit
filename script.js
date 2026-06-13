@@ -8,6 +8,8 @@ const energyText = document.getElementById("energyText");
 const helperBtn = document.getElementById("helperBtn");
 const helperTip = document.getElementById("helperTip");
 const posterRail = document.getElementById("posterRail");
+const posterViewer = document.getElementById("posterViewer");
+const posterViewerImage = document.getElementById("posterViewerImage");
 
 const tips = [
   "你负责派单推进",
@@ -17,6 +19,16 @@ const tips = [
 ];
 
 let tipIndex = 0;
+
+const showNextTip = () => {
+  if (!helperTip) return;
+
+  tipIndex = (tipIndex + 1) % tips.length;
+  helperTip.classList.remove("is-changing");
+  void helperTip.offsetWidth;
+  helperTip.textContent = tips[tipIndex];
+  helperTip.classList.add("is-changing");
+};
 
 const countTo = (element) => {
   if (element.dataset.done === "true") return;
@@ -104,6 +116,35 @@ if (posterRail) {
   updateActivePoster();
 }
 
+const openPosterViewer = (image) => {
+  if (!posterViewer || !posterViewerImage) return;
+
+  posterViewerImage.src = image.src;
+  posterViewerImage.alt = image.alt || "招聘海报完整预览";
+  posterViewer.classList.add("is-open");
+  posterViewer.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+};
+
+const closePosterViewer = () => {
+  if (!posterViewer || !posterViewerImage) return;
+
+  posterViewer.classList.remove("is-open");
+  posterViewer.setAttribute("aria-hidden", "true");
+  posterViewerImage.src = "";
+  document.body.style.overflow = "";
+};
+
+if (posterRail) {
+  posterRail.querySelectorAll("img").forEach((image) => {
+    image.addEventListener("click", () => openPosterViewer(image));
+  });
+}
+
+if (posterViewer) {
+  posterViewer.addEventListener("click", closePosterViewer);
+}
+
 const openModal = () => {
   modal.classList.add("is-open");
   modal.setAttribute("aria-hidden", "false");
@@ -125,10 +166,12 @@ document.querySelectorAll("[data-close-modal]").forEach((button) => {
 });
 
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && modal.classList.contains("is-open")) closeModal();
+  if (event.key !== "Escape") return;
+  if (posterViewer?.classList.contains("is-open")) closePosterViewer();
+  if (modal.classList.contains("is-open")) closeModal();
 });
 
-helperBtn.addEventListener("click", () => {
-  tipIndex = (tipIndex + 1) % tips.length;
-  helperTip.textContent = tips[tipIndex];
-});
+if (helperBtn) {
+  helperBtn.addEventListener("click", showNextTip);
+  window.setInterval(showNextTip, 3200);
+}
