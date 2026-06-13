@@ -256,6 +256,20 @@
       <span>点击任意位置返回</span>
     </div>
 
+    <!-- 音频元素 -->
+    <audio id="bgmAudio" loop preload="auto"><source src="./audio/bgm.mp3" type="audio/mpeg"></audio>
+    <audio id="sfxPop" preload="auto"><source src="./audio/pop.mp3" type="audio/mpeg"></audio>
+    <audio id="sfxWhoosh" preload="auto"><source src="./audio/whoosh.mp3" type="audio/mpeg"></audio>
+    <audio id="sfxDing" preload="auto"><source src="./audio/ding.mp3" type="audio/mpeg"></audio>
+    <audio id="sfxClick" preload="auto"><source src="./audio/click.mp3" type="audio/mpeg"></audio>
+    <audio id="sfxSlide" preload="auto"><source src="./audio/slide.mp3" type="audio/mpeg"></audio>
+
+    <!-- 音乐控制按钮 -->
+    <button class="music-toggle" id="musicToggle" type="button" aria-label="背景音乐开关">
+      <svg class="music-icon music-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      <svg class="music-icon music-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/><line x1="1" y1="1" x2="23" y2="23" stroke="currentColor" stroke-width="2"/></svg>
+    </button>
+
     <script src="./script.js"></script>
   </body>
 </html>
