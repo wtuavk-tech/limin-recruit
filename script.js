@@ -1,17 +1,3 @@
-/* ── 音效系统 ── */
-const sfxPop = document.getElementById("sfxPop");
-const sfxWhoosh = document.getElementById("sfxWhoosh");
-const sfxDing = document.getElementById("sfxDing");
-const sfxClick = document.getElementById("sfxClick");
-const sfxSlide = document.getElementById("sfxSlide");
-
-const playSfx = (el) => {
-  if (!el) return;
-  el.currentTime = 0;
-  el.play().catch(() => {});
-};
-
-/* ── 原有逻辑 ── */
 const revealItems = document.querySelectorAll(".reveal");
 const counters = document.querySelectorAll("[data-count]");
 const modal = document.getElementById("applyModal");
@@ -42,7 +28,6 @@ const showNextTip = () => {
   void helperTip.offsetWidth;
   helperTip.textContent = tips[tipIndex];
   helperTip.classList.add("is-changing");
-  playSfx(sfxDing);
 };
 
 const countTo = (element) => {
@@ -82,14 +67,12 @@ document.querySelectorAll(".flow-chip").forEach((button) => {
     document.querySelectorAll(".flow-chip").forEach((chip) => chip.classList.remove("active"));
     button.classList.add("active");
     orderText.textContent = button.dataset.order;
-    playSfx(sfxWhoosh);
   });
 });
 
 const updateRange = () => {
   const value = Number(orderRange.value);
   orderCount.textContent = value.toString();
-  playSfx(sfxSlide);
 
   if (value < 16) {
     energyText.textContent = "适合先熟悉节奏，稳稳把流程跑顺";
@@ -141,7 +124,6 @@ const openPosterViewer = (image) => {
   posterViewer.classList.add("is-open");
   posterViewer.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
-  playSfx(sfxClick);
 };
 
 const closePosterViewer = () => {
@@ -167,7 +149,6 @@ const openModal = () => {
   modal.classList.add("is-open");
   modal.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
-  playSfx(sfxPop);
 };
 
 const closeModal = () => {
