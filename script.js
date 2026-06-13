@@ -1,45 +1,15 @@
-/* ── 音频系统 ── */
-const bgmAudio = document.getElementById("bgmAudio");
+/* ── 音效系统 ── */
 const sfxPop = document.getElementById("sfxPop");
 const sfxWhoosh = document.getElementById("sfxWhoosh");
 const sfxDing = document.getElementById("sfxDing");
 const sfxClick = document.getElementById("sfxClick");
 const sfxSlide = document.getElementById("sfxSlide");
-const musicToggle = document.getElementById("musicToggle");
-
-let musicOn = true;
 
 const playSfx = (el) => {
   if (!el) return;
   el.currentTime = 0;
   el.play().catch(() => {});
 };
-
-const toggleMusic = () => {
-  musicOn = !musicOn;
-  if (musicOn) {
-    bgmAudio.play().catch(() => {});
-  } else {
-    bgmAudio.pause();
-  }
-  musicToggle.classList.toggle("is-muted", !musicOn);
-};
-
-if (musicToggle) {
-  musicToggle.addEventListener("click", toggleMusic);
-}
-
-// 首次用户交互时启动背景音乐（浏览器策略要求）
-const startBgm = () => {
-  if (bgmAudio && musicOn) {
-    bgmAudio.volume = 0.35;
-    bgmAudio.play().catch(() => {});
-  }
-  document.removeEventListener("click", startBgm);
-  document.removeEventListener("touchstart", startBgm);
-};
-document.addEventListener("click", startBgm);
-document.addEventListener("touchstart", startBgm);
 
 /* ── 原有逻辑 ── */
 const revealItems = document.querySelectorAll(".reveal");
